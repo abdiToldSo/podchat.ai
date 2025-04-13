@@ -91,7 +91,7 @@ class ChatMessage(ft.Row):
         return colors_lookup[hash(user_name) % len(colors_lookup)]
 
 
-def main(page: ft.Page):
+def chat(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.STRETCH
     page.title = "Flet Chat"
 
@@ -221,4 +221,4 @@ def main(page: ft.Page):
     )
 
 
-ft.app(target=main)
+# ft.app(target=main)

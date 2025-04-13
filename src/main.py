@@ -59,7 +59,7 @@ class ChatMessage(ft.Row):
                 [
                     ft.Text(message.user_name, weight="bold"),
                     ft.Markdown(message.text, selectable=True, fit_content=False),
-                    ft.Text(message.date_time.strftime("%D %T"), selectable=True),
+                    ft.Markdown("*"+message.date_time.strftime("%D %T")+"*", selectable=True),
                 ],
                 tight=True,
                 spacing=5,
@@ -93,7 +93,7 @@ class ChatMessage(ft.Row):
 
 def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.STRETCH
-    page.title = "Flet Chat"
+    page.title = "Podchat.ai"
 
     def join_chat_click(e):
         if not join_user_name.value:
@@ -124,6 +124,7 @@ def main(page: ft.Page):
             if new_message.value[0] == '!':
                 test = jemma.jemma(new_message.value)
                 test.decision()
+                new_message.value = ""
                 try:
                     page.pubsub.send_all(
                         Message(
@@ -140,7 +141,6 @@ def main(page: ft.Page):
                             message_type="chat_message"
                         )
                     )
-                new_message.value = ""
             new_message.value = ""
             new_message.focus()
             page.update()

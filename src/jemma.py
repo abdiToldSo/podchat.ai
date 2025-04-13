@@ -45,9 +45,8 @@ class jemma:
         elif "rel " == self.req_type:
             self.response = self.client.models.generate_content(
               model="gemini-2.0-flash", contents=[
-                  '''If the concept given is a person, show a list of related
-                  people. Else, show a list of related topics to the following
-                  concept.''',
+                  '''If the following input given is a person, show a list of
+                  related people. Else, show a list of related topics.''',
                   self.req_concept
                 ]
             )
@@ -56,5 +55,9 @@ class jemma:
         elif "wiki " == self.req_type:
             self.response = wk.summary(wk.search(self.req_concept)[0], sentences=2)
         else:
-            pass
+            self.response = self.client.models.generate_content(
+              model="gemini-2.0-flash", contents=[
+                  self.req_concept
+                ]
+            )
         # Might be an issue if i pass, will find out later 🙏
